@@ -1,2 +1,3 @@
 # e-ink
 Inspired by https://www.engineersneedart.com/systemsix/systemsix.html...
+A full write-up on this code is at https://the-plot.com/blog/wp-admin/post.php?post=1691
