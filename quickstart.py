@@ -21,6 +21,10 @@ def main():
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
+    
+    # Note: if you run the script from cron, you need to have a path set for
+    # both the token and credentials files.
+    
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
