@@ -4,7 +4,7 @@ import datetime
 from googleapiclient.errors import HttpError
 
 def main():
-    key_file = '/path/to/exported/service/account/keyfile.json'
+    key_file = '/home/donal/screen/gcpServiceAcc/calendarprojectPrivKey.json'
 
     scope = ("https://www.googleapis.com/auth/calendar.readonly",)
     creds = service_account.Credentials.from_service_account_file(key_file, scopes=scope)
@@ -15,7 +15,7 @@ def main():
         now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
         print('Getting the upcoming 10 events')
         # change from primary using the list method: https://developers.google.com/calendar/api/v3/reference/calendarList/list
-        events_result = service.events().list(calendarId='yourCalendarIDHere@group.calendar.google.com', timeMin=now,
+        events_result = service.events().list(calendarId='yourCalIdHereg@group.calendar.google.com', timeMin=now,
                                               maxResults=10, singleEvents=True,
                                               orderBy='startTime').execute()
         events = events_result.get('items', [])
@@ -28,7 +28,7 @@ def main():
         eventsFile = open("/home/donal/screen/events.txt", "w")
         eventsTableHTML = open("/home/donal/screen/eventsTable.html", "w")
         eventsTableHTML.write("<html><head></head><body><font size=\"12\" face=\"Arial\">\n")
-        eventsTableHTML.write("<table border=1><tr><th colspan=3 align=\"center\">Upcoming Events</th></tr>\n")
+        eventsTableHTML.write("<table style=\"width:460px; border: 1px solid black; border-collapse: collapse\"><tr><th colspan=3 align=\"center\">Upcoming Events</th></tr>\n")
         for event in events:
             start = event['start'].get('dateTime', event['start'].get('date'))
             #print (datetime.datetime.strptime(start, '%Y-%m-%dT%H:%M:%S%z'))
@@ -43,7 +43,7 @@ def main():
             #print(event['summary'])
             eventString = formattedDate.strftime("%A %d/%m/%Y||%I:%M%p||"+event['summary']+"\n")
             eventsFile.write(eventString)
-            eventTableHtmlString = formattedDate.strftime("<tr><td>%A %d/%m/%Y</td><td>%I:%M%p</td><td>"+event['summary']+"</td></tr>\n")
+            eventTableHtmlString = formattedDate.strftime("<tr><td style=\"width:175px; outline: thin solid\">%A %d/%m/%Y</td><td style=\"width:70; outline: thin solid\">%I:%M%p</td><td style=\"outline: thin solid\">"+event['summary']+"</td></tr>\n")
             eventsTableHTML.write(eventTableHtmlString)
         eventsFile.close()
         eventsTableHTML.write("</table></body></html>")
